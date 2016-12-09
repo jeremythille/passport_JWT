@@ -1,0 +1,43 @@
+
+<h3>You must be authenticated to see the secret content!</h3>
+
+<form action="javascript:void(0)" method="post">
+	<div>
+		<label>Username:</label>
+		<input type="text" name="username" value="jer" />
+	</div>
+	<div>
+		<label>Password:</label>
+		<input type="password" name="password" value="toto" />
+	</div>
+	<br>
+	<input id="login" type="submit" value="Log In using JWT" />
+
+</form>
+
+<br>
+<br>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script>
+	$('#login').click(() => {
+
+		const username = $('input[name=username]').val();
+		const password = $('input[name=password]').val();
+
+		$
+			.post("/token", {
+					username: username,
+					password: password
+				},
+				"json")
+			.success((data) => {
+				localStorage.setItem('token', data.token);
+				window.location = "/secret"
+			})
+			.error((err) => {
+				alert(err.statusText);
+			})
+	});
+</script>
