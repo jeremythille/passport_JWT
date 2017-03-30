@@ -13,7 +13,7 @@ const User = mongoose.model('user', userSchema);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/test', function(err) {
+mongoose.connect('mongodb://localhost/passport_local_jwt_mongoose', function(err) {
   if (err) {
     return log("~~~~~~~~~~~~~~~~~~~~~~   Error connecting to MongoDB! ~~~~~~~~~~~~~~~~");
   }
