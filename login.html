@@ -37,7 +37,8 @@
 				window.location = "/secret"
 			})
 			.error((err) => {
-				alert(err.statusText);
+				console.error(err)
+				// alert(err.statusText);
 			})
 	});
 </script>

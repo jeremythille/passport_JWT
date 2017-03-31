@@ -1,3 +1,5 @@
+# PassportJS + JSON Web Tokens + NodeJS + MongoDB
+
 This is a working example of an authentication using PassportJS and Json Web Tokens.
 
 This is used in the NodeJS training I give at Nomades in Geneva (2017-03)

@@ -27,15 +27,17 @@ passport.authenticationMiddleware = (req, res, next) => {
 
 	console.log("decoded = ", decoded)
 
-	user = User.findById(decoded.id);
+	user = User
+			.findById(decoded.id)
+			.exec( (err, user) => {
+				if (user) {
+					console.info("Auth middleware : authorised :)  ~~~~~~~~")
+					return next()
+				}
 
-	if (user) {
-		console.info("Auth middleware : authorised :)  ~~~~~~~~")
-		return next()
-	}
-
-	console.error("Auth middleware : not auth! ~~~~~~~~~~")
-	res.redirect('/login')
+				console.error("Auth middleware : not auth! ~~~~~~~~~~")
+				res.redirect('/login')
+			})
 }
 
 
@@ -55,7 +57,10 @@ app
 		req.logout();
 		res.redirect('/loggedOut');
 	})
-	.get('/badLogin', (req, res) => res.send('<h1>Wrong credentials!</h1>'))
+	.get('/badLogin', (req, res) => {
+		console.log("Bad login !")
+		res.send('<h1>Wrong credentials!</h1>')
+	})
 	.get('/loggedOut', (req, res) => {
 		res.sendFile(__dirname + '/loggedOut.html')
 	})
@@ -63,7 +68,9 @@ app
 		res.sendFile(__dirname + '/secret.html')
 	})
 	.get('/secretContent',
+
 		passport.authenticationMiddleware,
+
 		(req, res) => {
 			res.status(200).send('Secret image!<br><img src="http://www.minionland.com/wp-content/uploads/2015/10/minion-stuart-dance-gif-1445349814n84gk.gif"/><br><br>')
 		})

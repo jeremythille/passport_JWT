@@ -1,4 +1,5 @@
 
+
 $.ajax({
 	url: "/secretContent",
 	type: 'GET',
@@ -9,7 +10,8 @@ $.ajax({
 		$('div#content').html(data);
 	})
 	.error((err) => {
-		alert(err.statusText);
+		console.error(err)
+		// alert(err.statusText);
 	})
 
 
